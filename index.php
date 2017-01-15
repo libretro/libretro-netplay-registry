@@ -22,7 +22,7 @@ foreach ($entryProperties as $property) {
 
 // If we're not adding an entry, output the registry.
 if (empty($addedEntry)) {
-	header('Content-Type: text/lpl');
+	header('Content-Type: text/plain');
 	//header('Content-Disposition: attachment;filename=registry.lpl');
 
 	// Retrieve the registry.
@@ -116,5 +116,5 @@ array_push($registry, $addedEntry);
 removeOldEntries($registry);
 
 // Save and output the new registry.
-header('Content-Type: text/lpl');
+header('Content-Type: text/plain');
 echo saveRegistry($registry);
