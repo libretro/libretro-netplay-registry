@@ -24,7 +24,11 @@ foreach ($entryProperties as $property) {
 if (empty($addedEntry)) {
 	header('Content-Type: text/lpl');
 	//header('Content-Disposition: attachment;filename=registry.lpl');
-	echo file_get_contents('registry.lpl');
+
+	// Retrieve the registry.
+	$registry = readRegistry();
+	removeOldEntries($registry);
+	echo saveRegistry($registry);
 	exit;
 }
 
