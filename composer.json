@@ -1,0 +1,13 @@
+{
+    "name": "robloach/libretro-netplay-registry",
+    "description": "libretro's NetPlay Registry",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Rob Loach"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {}
+}
