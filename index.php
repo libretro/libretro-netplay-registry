@@ -6,7 +6,7 @@
  */
 
 // See if we are adding an entry to the registry.
-$entryProperties = array('username', 'ip', 'corename', 'coreversion', 'gamename', 'gamecrc');
+$entryProperties = array('username', 'corename', 'coreversion', 'gamename', 'gamecrc');
 $addedEntry = array();
 
 // Fill in all the properties.
@@ -28,6 +28,10 @@ if (empty($addedEntry)) {
 	exit;
 }
 
+// Fill in the optional properties.
+$addedEntry['ip'] = $_GET['ip'] ? $_GET['ip'] : $_SERVER['REMOTE_ADDR'];
+$addedEntry['port'] = $_GET['port'] ? $_GET['port'] : '55435';
+
 /**
  * Read the registry file into an array of entries.
  */
@@ -35,7 +39,7 @@ function readRegistry() {
 	// Build the registery.
 	$registry = array();
 	$currentEntry = array();
-	$properties = array('username', 'ip', 'corename', 'coreversion', 'gamename', 'gamecrc', 'time');
+	$properties = array('username', 'ip', 'port', 'corename', 'coreversion', 'gamename', 'gamecrc', 'time');
 
 	// Read through the registry.lpl file.
 	$fn = fopen('registry.lpl', 'r');
@@ -70,6 +74,7 @@ function saveRegistry($registry) {
 			array_push($output, implode(array(
 				$entry['username'],
 				$entry['ip'],
+				$entry['port'],
 				$entry['corename'],
 				$entry['coreversion'],
 				$entry['gamename'],
@@ -87,7 +92,6 @@ function saveRegistry($registry) {
  * Removes any old entries from the registry array.
  */
 function removeOldEntries(&$registry) {
-	$usernames = array();
 	foreach ($registry as $index => $entry) {
 		if ($entry['time'] < time() - 300) {
 			$registry[$index]['username'] = '';
