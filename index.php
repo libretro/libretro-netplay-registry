@@ -5,16 +5,24 @@
  * Managed a registry.lpl file for libretro to use as a netplay host registry.
  */
 
+// Let the browser know we will output plain text.
+header('Content-Type: text/plain');
+
 // See if we are adding an entry to the registry.
 $entryProperties = array('username', 'corename', 'coreversion', 'gamename', 'gamecrc');
 $addedEntry = array();
 
 // Fill in all the properties.
 foreach ($entryProperties as $property) {
-	if (isset($_GET[$property])) {
-		$addedEntry[$property] = $_GET[$property];
+	// Retrieve the given property.
+	$value = isset($_GET[$property]) ? cleanProperty($_GET[$property]) : '';
+
+	// If it's valid, then add it to the entry.
+	if (!empty($value)) {
+		$addedEntry[$property] = $value;
 	}
 	else {
+		// The properties and invalid, ignore the new entry.
 		$addedEntry = array();
 		break;
 	}
@@ -22,9 +30,6 @@ foreach ($entryProperties as $property) {
 
 // If we're not adding an entry, output the registry.
 if (empty($addedEntry)) {
-	header('Content-Type: text/plain');
-	//header('Content-Disposition: attachment;filename=registry.lpl');
-
 	// Retrieve the registry.
 	$registry = readRegistry();
 	removeOldEntries($registry);
@@ -32,9 +37,16 @@ if (empty($addedEntry)) {
 	exit;
 }
 
-// Fill in the optional properties.
-$addedEntry['ip'] = $_GET['ip'] ? $_GET['ip'] : $_SERVER['REMOTE_ADDR'];
-$addedEntry['port'] = $_GET['port'] ? $_GET['port'] : '55435';
+// Fill in the remaining properties.
+$addedEntry['ip'] = $_SERVER['REMOTE_ADDR'];
+$addedEntry['time'] = time();
+$addedEntry['port'] = '55435';
+if (isset($_GET['port'])) {
+	$port = cleanProperty($_GET['port']);
+	if (!empty($port)) {
+		$addedEntry['port'] = $port;
+	}
+}
 
 /**
  * Read the registry file into an array of entries.
@@ -93,20 +105,27 @@ function saveRegistry($registry) {
 }
 
 /**
+ * Cleans the given GET parameter.
+ */
+function cleanProperty($input = '') {
+	return preg_replace('/[^-a-zA-Z0-9._ ]/', '', $input);
+}
+
+/**
  * Adds the entry, with a unique username, ip and port.
  */
-function addEntry(&$registry, $addedEntry) {
+function addEntry(&$registry, $newEntry) {
 	$added = FALSE;
 	foreach ($registry as $index => $entry) {
 		// Throttle IP requests by 10 seconds.
-		if ($addedEntry['ip'] == $entry['ip'] && $addedEntry['time'] - $entry['time'] < 10) {
+		if ($newEntry['ip'] == $entry['ip'] && $newEntry['time'] - $entry['time'] < 10) {
 			$added = TRUE;
 			break;
 		}
 
 		// Update unique entries by username, IP and Port.
-		if ($entry['username'] == $addedEntry['username'] && $entry['ip'] == $addedEntry['ip'] && $entry['port'] == $addedEntry['port']) {
-			$registry[$index] = $addedEntry;
+		if ($entry['username'] == $newEntry['username'] && $entry['ip'] == $newEntry['ip'] && $entry['port'] == $newEntry['port']) {
+			$registry[$index] = $newEntry;
 			$added = TRUE;
 			break;
 		}
@@ -114,8 +133,8 @@ function addEntry(&$registry, $addedEntry) {
 
 	// If the entry is still not present, add it.
 	if (!$added) {
-		array_push($registry, $addedEntry);
-	} 
+		array_push($registry, $newEntry);
+	}
 }
 
 /**
@@ -132,9 +151,6 @@ function removeOldEntries(&$registry) {
 // Retrieve the registry.
 $registry = readRegistry();
 
-// Make sure the entry has the current time.
-$addedEntry['time'] = time();
-
 // Add the entry to the registry.
 addEntry($registry, $addedEntry);
 
@@ -142,5 +158,4 @@ addEntry($registry, $addedEntry);
 removeOldEntries($registry);
 
 // Save and output the new registry.
-header('Content-Type: text/plain');
 echo saveRegistry($registry);
