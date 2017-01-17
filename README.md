@@ -15,6 +15,10 @@ Stores a netplay registry for libretro.
 1. Visit index.php?username=<user>&ip=<ip>&corename=<corename>&coreversion=<coreversion>&gamename=<gamename>&gamecrc=<gamecrc> to add an entry
 1. Visit index.php and see your new entry added
 
+## Development
+
+Use [Docker Compose](https://docs.docker.com/compose/) to set up a development environment. Instructions are in [docker-compose.yml](docker-compose.yml).
+
 ## TODO
 
 - Add some validation and security behind adding entries
