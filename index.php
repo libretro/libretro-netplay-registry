@@ -98,12 +98,21 @@ function saveRegistry($registry) {
 function addEntry(&$registry, $addedEntry) {
 	$added = FALSE;
 	foreach ($registry as $index => $entry) {
+		// Throttle IP requests by 10 seconds.
+		if ($addedEntry['ip'] == $entry['ip'] && $addedEntry['time'] - $entry['time'] < 10) {
+			$added = TRUE;
+			break;
+		}
+
+		// Update unique entries by username, IP and Port.
 		if ($entry['username'] == $addedEntry['username'] && $entry['ip'] == $addedEntry['ip'] && $entry['port'] == $addedEntry['port']) {
 			$registry[$index] = $addedEntry;
 			$added = TRUE;
+			break;
 		}
 	}
 
+	// If the entry is still not present, add it.
 	if (!$added) {
 		array_push($registry, $addedEntry);
 	} 
