@@ -93,6 +93,23 @@ function saveRegistry($registry) {
 }
 
 /**
+ * Adds the entry, with a unique username, ip and port.
+ */
+function addEntry(&$registry, $addedEntry) {
+	$added = FALSE;
+	foreach ($registry as $index => $entry) {
+		if ($entry['username'] == $addedEntry['username'] && $entry['ip'] == $addedEntry['ip'] && $entry['port'] == $addedEntry['port']) {
+			$registry[$index] = $addedEntry;
+			$added = TRUE;
+		}
+	}
+
+	if (!$added) {
+		array_push($registry, $addedEntry);
+	} 
+}
+
+/**
  * Removes any old entries from the registry array.
  */
 function removeOldEntries(&$registry) {
@@ -110,7 +127,7 @@ $registry = readRegistry();
 $addedEntry['time'] = time();
 
 // Add the entry to the registry.
-array_push($registry, $addedEntry);
+addEntry($registry, $addedEntry);
 
 // Remove any old entries from the registry.
 removeOldEntries($registry);
