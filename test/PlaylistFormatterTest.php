@@ -17,7 +17,10 @@ class PlaylistFormatterTest extends TestBase
             'gamecrc' => $this->randomString(7),
         );
         $this->registry->insert($entry);
-        $output = "{$entry['username']}\n{$entry['ip']}\n{$entry['port']}\n{$entry['corename']}\n{$entry['coreversion']}\n{$entry['gamename']}\n{$entry['gamecrc']}";
+
+        $entries = $this->registry->selectAll();
+        $entry = $entries[0];
+        $output = "{$entry['username']}\n{$entry['ip']}\n{$entry['port']}\n{$entry['corename']}\n{$entry['coreversion']}\n{$entry['gamename']}\n{$entry['gamecrc']}\n{$entry['created']}";
         $playlist = new PlaylistFormatter($this->registry);
         $this->assertEquals($output, (string)$playlist);
     }

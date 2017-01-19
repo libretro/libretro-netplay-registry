@@ -20,6 +20,7 @@ class PlaylistFormatter {
 				$entry['coreversion'],
 				$entry['gamename'],
 				$entry['gamecrc'],
+				$entry['created'],
 			), "\n"));
 		}
 		return implode($output, "\n");
