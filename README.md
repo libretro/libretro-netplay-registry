@@ -10,7 +10,8 @@ Stores a netplay registry for libretro.
 ## Install
 
 1. Check out the git repository
-1. Make sure registry.lpl is writable by the web user
+1. Make sure SQLite3 is available to PHP
+1. Make sure .registry.sqlite is writable by PHP
 1. Visit index.php and see that the registry is empty
 1. Visit index.php?username=<user>&ip=<ip>&corename=<corename>&coreversion=<coreversion>&gamename=<gamename>&gamecrc=<gamecrc> to add an entry
 1. Visit index.php and see your new entry added
