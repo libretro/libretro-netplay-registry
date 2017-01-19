@@ -1,5 +1,8 @@
 <?php
 
+// Set the content type.
+header('Content-Type: text/plain');
+
 // Load the classes.
 require_once(__DIR__ . '/src/autoload.php');
 
