@@ -7,16 +7,8 @@ require_once(__DIR__ . '/../src/autoload.php');
 class PlaylistFormatterTest extends TestBase
 {
     function testToString() {
-        $entry = array(
-            'username' => isset($username) ? $username : $this->randomString(10),
-            'ip' => '127.0.0.1',
-            'port' => '8080',
-            'corename' => $this->randomString(10),
-            'coreversion' => $this->randomString(3),
-            'gamename' => $this->randomString(5),
-            'gamecrc' => $this->randomString(7),
-        );
-        $this->registry->insert($entry);
+        $entry = $this->randomEntry();
+        $this->registry->insert($entry, false);
 
         $entries = $this->registry->selectAll();
         $entry = $entries[0];

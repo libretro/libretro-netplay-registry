@@ -6,14 +6,8 @@ require_once(__DIR__ . '/TestBase.php');
 class RegistryTest extends TestBase
 {
     function testInsert($username = null) {
-        $entry = array(
-            'username' => isset($username) ? $username : $this->randomString(10),
-            'corename' => $this->randomString(10),
-            'coreversion' => $this->randomString(3),
-            'gamename' => $this->randomString(5),
-            'gamecrc' => $this->randomString(7),
-        );
-        $result = $this->registry->insert($entry);
+        $entry = $this->randomEntry($username);
+        $result = $this->registry->insert($entry, false);
         $this->assertTrue($result);
     }
 
