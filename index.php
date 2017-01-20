@@ -42,7 +42,7 @@ else {
 	<div class="container">
 		<div class="jumbotron">
 			<h1 class="display-4">RetroArch Lobby Browser</h1>
-			<p class="lead">Currently available netplay</p>
+			<p class="lead">Currently available netplay rooms in RetroArch</p>
 		</div>
 
 		<?php
