@@ -52,6 +52,9 @@ function getNewEntry() {
 			$addedEntry['port'] = $port;
 		}
 	}
+	if (isset($_GET['haspassword'])) {
+		$addedEntry['haspassword'] = empty($_GET['haspassword']);
+	}
 
 	return $addedEntry;
 }
