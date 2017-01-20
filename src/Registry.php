@@ -89,7 +89,7 @@ class Registry {
         return false;
     }
 
-    function clearOld($age = 300) {
+    function clearOld($age = 120) {
     	$time = time() - $age;
     	$this->clearOldEntries->bindParam(':time', $time, PDO::PARAM_INT);
     	$this->clearOldEntries->execute();
