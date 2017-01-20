@@ -30,7 +30,7 @@ function getNewEntry() {
 		// Retrieve the given property.
 		$value = isset($_GET[$property]) ? cleanProperty($_GET[$property]) : '';
 		// If it's valid, then add it to the entry.
-		if (!empty($value)) {
+		if (!empty($value) || $value === '0') {
 			$addedEntry[$property] = $value;
 		}
 		else {
