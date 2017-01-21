@@ -1,6 +1,6 @@
 <?php
 /**
- * Web-based RetroArch Lobby Browser.
+ * Web-based RetroArch Netplay Room Browser.
  */
 
 // Autoload the required classes.
@@ -42,7 +42,7 @@ else {
 	<div class="container">
 		<div class="jumbotron">
 			<h1 class="display-4">RetroArch Lobby Browser</h1>
-			<p class="lead">The following are the lobby browsers available in <a href="http://libretro.org">RetroArch</a>.</p>
+			<p class="lead">Currently available netplay rooms in RetroArch</p>
 		</div>
 
 		<?php
