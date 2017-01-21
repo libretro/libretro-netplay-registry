@@ -17,4 +17,21 @@ class RegistryTest extends TestBase
         $result = $this->registry->selectAll();
         $this->assertEquals($username, $result[0]['username']);
     }
+
+    function testInsertDuplicate() {
+        $entry = $this->randomEntry();
+        $this->registry->insert($entry, false);
+        $result = $this->registry->selectAll();
+        $this->assertEquals(1, sizeof($result));
+
+        $this->registry->insert($entry, false);
+        $result = $this->registry->selectAll();
+        $this->assertEquals(1, sizeof($result));
+
+        $entry['coreversion'] = '1.2';
+        $this->registry->insert($entry, false);
+        $result = $this->registry->selectAll();
+        $this->assertEquals(1, sizeof($result));
+        $this->assertEquals('1.2', $result[0]['coreversion']);
+    }
 }

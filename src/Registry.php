@@ -43,6 +43,16 @@ class Registry {
 	    	)');
     	$this->select = $this->db->prepare('SELECT * FROM registry');
     	$this->clearOldEntries = $this->db->prepare('DELETE FROM registry where created <= :time');
+        $this->updateQuery = $this->db->prepare('UPDATE registry SET
+            username = :username,
+            ip = :ip,
+            port = :port,
+            corename = :corename,
+            coreversion = :coreversion,
+            gamename = :gamename,
+            gamecrc = :gamecrc,
+            created = :created
+        WHERE id = :id');
         $this->clearOld();
     }
 
@@ -69,7 +79,7 @@ class Registry {
 
             // Update unique entries by username, IP and Port.
             if ($entry['username'] == $newEntry['username'] && $entry['ip'] == $newEntry['ip'] && $entry['port'] == $newEntry['port']) {
-                // TODO: Update the entry?
+                $this->update(array_merge($entry, $newEntry));
                 $added = TRUE;
                 break;
             }
@@ -87,6 +97,19 @@ class Registry {
         	return $this->insert->execute();
         }
         return false;
+    }
+
+    function update($entry) {
+        $this->updateQuery->bindParam(':id', $entry['id'], PDO::PARAM_INT);
+        $this->updateQuery->bindParam(':username', $entry['username'], PDO::PARAM_STR);
+        $this->updateQuery->bindParam(':ip', $entry['ip'], PDO::PARAM_STR);
+        $this->updateQuery->bindParam(':port', $entry['port'], PDO::PARAM_INT);
+        $this->updateQuery->bindParam(':corename', $entry['corename'], PDO::PARAM_STR);
+        $this->updateQuery->bindParam(':coreversion', $entry['coreversion'], PDO::PARAM_STR);
+        $this->updateQuery->bindParam(':gamename', $entry['gamename'], PDO::PARAM_STR);
+        $this->updateQuery->bindParam(':gamecrc', $entry['gamecrc'], PDO::PARAM_STR);
+        $this->updateQuery->bindParam(':created', $entry['created'], PDO::PARAM_INT);
+        return $this->updateQuery->execute();
     }
 
     function clearOld($age = 120) {
