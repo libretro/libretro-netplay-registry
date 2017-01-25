@@ -1,24 +1,30 @@
 <?php
+
+namespace RobLoach\LibretroNetplayRegistry\Test;
+
 use PHPUnit\Framework\TestCase;
 
-require_once(__DIR__ . '/TestBase.php');
+require_once __DIR__ . '/TestBase.php';
 
 class RegistryTest extends TestBase
 {
-    function testInsert($username = null) {
+    public function testInsert($username = null)
+    {
         $entry = $this->randomEntry($username);
         $result = $this->registry->insert($entry, false);
         $this->assertTrue($result);
     }
 
-    function testSelectAll() {
+    public function testSelectAll()
+    {
         $username = $this->randomString(20);
         $this->testInsert($username);
         $result = $this->registry->selectAll();
         $this->assertEquals($username, $result[0]['username']);
     }
 
-    function testInsertDuplicate() {
+    public function testInsertDuplicate()
+    {
         $entry = $this->randomEntry();
         $this->registry->insert($entry, false);
         $result = $this->registry->selectAll();

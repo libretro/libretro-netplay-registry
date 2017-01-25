@@ -11,8 +11,9 @@
     "scripts": {
         "test": [
             "phpunit test --no-coverage",
-            "phpcs --standard=PSR2 test src raw index.php"
+            "phpcs --warning-severity=6 --standard=PSR2 test src raw index.php"
         ],
+        "phpcbf": "phpcbf index.php test src raw",
         "clean": "rm -rf .*.sqlite"
     },
     "minimum-stability": "stable",

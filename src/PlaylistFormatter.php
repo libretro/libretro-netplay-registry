@@ -1,29 +1,37 @@
 <?php
 
-require_once(__DIR__ . '/Registry.php');
+namespace RobLoach\LibretroNetplayRegistry;
 
-class PlaylistFormatter {
-	private $registry;
+require_once __DIR__ . '/Registry.php';
 
-	function __construct(Registry $registry) {
-		$this->registry = $registry;
-	}
+use RobLoach\LibretroNetplayRegistry\Registry;
 
-	function __toString() {
-		$output = array();
-		foreach ($this->registry->selectAll() as $index => $entry) {
-			array_push($output, implode(array(
-				$entry['username'],
-				$entry['ip'],
-				$entry['port'],
-				$entry['corename'],
-				$entry['coreversion'],
-				$entry['gamename'],
-				$entry['gamecrc'],
-				$entry['haspassword'] ? '1' : '0',
-				$entry['created'],
-			), "\n"));
-		}
-		return implode($output, "\n");
-	}
+class PlaylistFormatter
+{
+    private $registry;
+
+    public function __construct(Registry $registry)
+    {
+        $this->registry = $registry;
+    }
+
+    public function __toString()
+    {
+        $output = array();
+        foreach ($this->registry->selectAll() as $index => $entry) {
+            $properties = array(
+                $entry['username'],
+                $entry['ip'],
+                $entry['port'],
+                $entry['corename'],
+                $entry['coreversion'],
+                $entry['gamename'],
+                $entry['gamecrc'],
+                $entry['haspassword'] ? '1' : '0',
+                $entry['created'],
+            );
+            array_push($output, implode($properties, "\n"));
+        }
+        return implode($output, "\n");
+    }
 }

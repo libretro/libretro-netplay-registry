@@ -1,18 +1,34 @@
 <?php
-use PHPUnit\Framework\TestCase;
 
-require_once(__DIR__ . '/TestBase.php');
-require_once(__DIR__ . '/../src/autoload.php');
+namespace RobLoach\LibretroNetplayRegistry\Test;
+
+use PHPUnit\Framework\TestCase;
+use RobLoach\LibretroNetplayRegistry\PlaylistFormatter;
+
+require_once __DIR__ . '/TestBase.php';
+require_once __DIR__ . '/../src/autoload.php';
 
 class PlaylistFormatterTest extends TestBase
 {
-    function testToString() {
+    public function testToString()
+    {
         $entry = $this->randomEntry();
         $this->registry->insert($entry, false);
 
         $entries = $this->registry->selectAll();
         $entry = $entries[0];
-        $output = "{$entry['username']}\n{$entry['ip']}\n{$entry['port']}\n{$entry['corename']}\n{$entry['coreversion']}\n{$entry['gamename']}\n{$entry['gamecrc']}\n{$entry['haspassword']}\n{$entry['created']}";
+        $properties = array(
+            $entry['username'],
+            $entry['ip'],
+            $entry['port'],
+            $entry['corename'],
+            $entry['coreversion'],
+            $entry['gamename'],
+            $entry['gamecrc'],
+            $entry['haspassword'],
+            $entry['created']
+        );
+        $output = implode($properties, "\n");
         $playlist = new PlaylistFormatter($this->registry);
         $this->assertEquals($output, (string)$playlist);
     }
