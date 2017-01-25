@@ -14,8 +14,7 @@ class Registry
     public function __construct($name = '.registry')
     {
         $this->db = new PDO("sqlite:$name.sqlite");
-        $this->db->exec(
-            'CREATE TABLE IF NOT EXISTS registry (
+        $this->db->exec('CREATE TABLE IF NOT EXISTS registry (
             id INTEGER PRIMARY KEY,
             username TEXT,
             ip TEXT,
@@ -26,11 +25,9 @@ class Registry
             gamecrc TEXT,
             haspassword BOOLEAN,
             created INTEGER
-        )'
-        );
+        )');
 
-        $this->insert = $this->db->prepare(
-            'INSERT INTO
+        $this->insert = $this->db->prepare('INSERT INTO
             registry (
                 username,
                 ip,
@@ -52,12 +49,11 @@ class Registry
                 :gamecrc,
                 :haspassword,
                 :created
-            )'
-        );
+            )
+        ');
         $this->select = $this->db->prepare('SELECT * FROM registry');
         $this->clearOldEntries = $this->db->prepare('DELETE FROM registry where created <= :time');
-        $this->updateQuery = $this->db->prepare(
-            'UPDATE registry SET
+        $this->updateQuery = $this->db->prepare('UPDATE registry SET
             username = :username,
             ip = :ip,
             port = :port,
@@ -67,8 +63,8 @@ class Registry
             gamecrc = :gamecrc,
             haspassword = :haspassword,
             created = :created
-        WHERE id = :id'
-        );
+            WHERE id = :id
+        ');
         $this->clearOld();
     }
 
