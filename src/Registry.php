@@ -9,15 +9,16 @@ class Registry {
 	function __construct($name = '.registry') {
 		$this->db = new PDO("sqlite:$name.sqlite");
     	$this->db->exec('CREATE TABLE IF NOT EXISTS registry (
-    		id INTEGER PRIMARY KEY,
-    		username TEXT,
+            id INTEGER PRIMARY KEY,
+            username TEXT,
             ip TEXT,
             port INTEGER,
-    		corename TEXT,
-    		coreversion TEXT,
-    		gamename TEXT,
-    		gamecrc TEXT,
-    		created INTEGER
+            corename TEXT,
+            coreversion TEXT,
+            gamename TEXT,
+            gamecrc TEXT,
+            haspassword BOOLEAN,
+            created INTEGER
     	)');
 
     	$this->insert = $this->db->prepare('INSERT INTO
@@ -29,6 +30,7 @@ class Registry {
 	    		coreversion,
 	    		gamename,
 	    		gamecrc,
+                haspassword,
 	    		created
 	    	)
 	    	VALUES (
@@ -39,6 +41,7 @@ class Registry {
 	    		:coreversion,
 	    		:gamename,
 	    		:gamecrc,
+                :haspassword,
 	    		:created
 	    	)');
     	$this->select = $this->db->prepare('SELECT * FROM registry');
@@ -51,6 +54,7 @@ class Registry {
             coreversion = :coreversion,
             gamename = :gamename,
             gamecrc = :gamecrc,
+            haspassword = :haspassword,
             created = :created
         WHERE id = :id');
         $this->clearOld();
@@ -66,6 +70,7 @@ class Registry {
         if (!isset($newEntry['created'])) {
             $newEntry['created'] = time();
         }
+        $newEntry['haspassword'] = isset($newEntry['haspassword']) ? empty($newEntry['haspassword']) : false;
 
         $added = FALSE;
         $entries = $this->selectAll();
@@ -93,6 +98,7 @@ class Registry {
         	$this->insert->bindParam(':coreversion', $newEntry['coreversion'], PDO::PARAM_STR);
         	$this->insert->bindParam(':gamename', $newEntry['gamename'], PDO::PARAM_STR);
         	$this->insert->bindParam(':gamecrc', $newEntry['gamecrc'], PDO::PARAM_STR);
+            $this->insert->bindParam(':haspassword', $newEntry['haspassword'], PDO::PARAM_BOOL);
         	$this->insert->bindParam(':created', $newEntry['created'], PDO::PARAM_INT);
         	return $this->insert->execute();
         }
@@ -108,6 +114,7 @@ class Registry {
         $this->updateQuery->bindParam(':coreversion', $entry['coreversion'], PDO::PARAM_STR);
         $this->updateQuery->bindParam(':gamename', $entry['gamename'], PDO::PARAM_STR);
         $this->updateQuery->bindParam(':gamecrc', $entry['gamecrc'], PDO::PARAM_STR);
+        $this->updateQuery->bindParam(':haspassword', $entry['haspassword'], PDO::PARAM_BOOL);
         $this->updateQuery->bindParam(':created', $entry['created'], PDO::PARAM_INT);
         return $this->updateQuery->execute();
     }
