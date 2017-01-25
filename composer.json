@@ -9,11 +9,17 @@
         }
     ],
     "scripts": {
-        "test": "phpunit test --no-coverage",
+        "test": [
+            "phpunit test --no-coverage",
+            "phpcs --standard=PSR2 test src raw index.php"
+        ],
         "clean": "rm -rf .*.sqlite"
     },
     "minimum-stability": "stable",
     "require-dev": {
         "phpunit/phpunit": "^5.7"
+    },
+    "require": {
+        "squizlabs/php_codesniffer": "^2.7"
     }
 }
