@@ -2,8 +2,6 @@
 
 namespace RobLoach\LibretroNetplayRegistry;
 
-require_once __DIR__ . '/Registry.php';
-
 use RobLoach\LibretroNetplayRegistry\Registry;
 
 class PlaylistFormatter

@@ -92,7 +92,9 @@ class Registry
             }
 
             // Update unique entries by username, IP and Port.
-            if ($entry['username'] == $newEntry['username'] && $entry['ip'] == $newEntry['ip'] && $entry['port'] == $newEntry['port']) {
+            if ($entry['username'] == $newEntry['username'] &&
+                $entry['ip'] == $newEntry['ip'] &&
+                $entry['port'] == $newEntry['port']) {
                 $this->update(array_merge($entry, $newEntry));
                 $added = true;
                 break;

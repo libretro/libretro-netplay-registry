@@ -4,9 +4,7 @@ namespace RobLoach\LibretroNetplayRegistry\Test;
 
 use PHPUnit\Framework\TestCase;
 use RobLoach\LibretroNetplayRegistry\PlaylistFormatter;
-
-require_once __DIR__ . '/TestBase.php';
-require_once __DIR__ . '/../src/autoload.php';
+use RobLoach\LibretroNetplayRegistry\Test\TestBase;
 
 class PlaylistFormatterTest extends TestBase
 {

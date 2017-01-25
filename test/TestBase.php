@@ -5,8 +5,6 @@ namespace RobLoach\LibretroNetplayRegistry\Test;
 use PHPUnit\Framework\TestCase;
 use RobLoach\LibretroNetplayRegistry\Registry;
 
-require_once __DIR__ . '/../src/autoload.php';
-
 class TestBase extends TestCase
 {
     protected $registry;
