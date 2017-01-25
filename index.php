@@ -1,64 +1,53 @@
 <?php
+/**
+ * Web-based RetroArch Netplay Room Browser.
+ */
 
-// Set the content type.
-header('Content-Type: text/plain');
-
-// Load the classes.
+// Autoload the required classes.
 require_once(__DIR__ . '/src/autoload.php');
 
-// Load the registry.
+// Load the entries from the registry.
 $registry = new Registry();
+$entries = $registry->selectAll();
 
-// Check if we are adding a new entry.
-$newEntry = getNewEntry();
-if ($newEntry) {
-	$registry->insert($newEntry);
+// Construct the lobby contents.
+$contents = '';
+if (empty($entries)) {
+	$contents = '<div class="alert alert-info" role="alert">There are currently no lobbies open.</div>';
 }
+else {
+	// Table header.
+	$contents = '<table class="table"><thead><tr><th>Username</th><th>Game</th><th>Core</th></thead><tbody>';
 
-// Output the new playlist.
-$playlist = new PlaylistFormatter($registry);
-echo $playlist;
-
-/**
- * Reads the GET parameters to load a new entry.
- */
-function getNewEntry() {
-	$entryProperties = array('username', 'corename', 'coreversion', 'gamename', 'gamecrc');
-	$addedEntry = array();
-	// Fill in all the properties.
-	foreach ($entryProperties as $property) {
-		// Retrieve the given property.
-		$value = isset($_GET[$property]) ? cleanProperty($_GET[$property]) : '';
-		// If it's valid, then add it to the entry.
-		if (!empty($value)) {
-			$addedEntry[$property] = $value;
-		}
-		else {
-			// The properties and invalid, ignore the new entry.
-			$addedEntry = array();
-			break;
-		}
+	// Loop through every row.
+	foreach ($entries as $entry) {
+		$contents .= "<tr><th>{$entry['username']}</th><td>{$entry['gamename']}</td><td>{$entry['corename']}</td></tr>";
 	}
 
-	if (empty($addedEntry)) {
-		return null;
-	}
-	$addedEntry['ip'] = $_SERVER['REMOTE_ADDR'];
-	$addedEntry['time'] = time();
-	$addedEntry['port'] = '55435';
-	if (isset($_GET['port'])) {
-		$port = cleanProperty($_GET['port']);
-		if (!empty($port)) {
-			$addedEntry['port'] = $port;
-		}
-	}
-
-	return $addedEntry;
+	// Table footer.
+	$contents .= '</tbody></table>';
 }
+?>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>RetroArch Lobby Browser</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+<link rel="shortcut icon" href="/media/icon_dark.ico"/>
+</head>
+<body>
+	<div class="container">
+		<div class="jumbotron">
+			<h1 class="display-4">RetroArch Lobby Browser</h1>
+			<p class="lead">Currently available netplay rooms in RetroArch</p>
+		</div>
 
-/**
- * Cleans the given GET parameter.
- */
-function cleanProperty($input = '') {
-	return preg_replace('/[^-a-zA-Z0-9._ ]/', '', $input);
-}
+		<?php
+			echo $contents;
+		?>
+	</div>
+</body>
+</html>

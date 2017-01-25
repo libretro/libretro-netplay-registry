@@ -63,5 +63,5 @@ function getNewEntry() {
  * Cleans the given GET parameter.
  */
 function cleanProperty($input = '') {
-	return preg_replace('/[^-a-zA-Z0-9._ ]/', '', $input);
+	return preg_replace('/[^-a-zA-Z0-9-()[]!,&\'._ ]/', '', $input);
 }
