@@ -10,3 +10,8 @@ install:
 
 script:
   - composer test
+
+cache:
+  directories:
+    - vendor
+    - $HOME/.composer
