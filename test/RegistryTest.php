@@ -4,8 +4,6 @@ namespace RobLoach\LibretroNetplayRegistry\Test;
 
 use PHPUnit\Framework\TestCase;
 
-require_once __DIR__ . '/TestBase.php';
-
 class RegistryTest extends TestBase
 {
     public function testInsert($username = null)
