@@ -54,6 +54,7 @@ class Registry {
             coreversion = :coreversion,
             gamename = :gamename,
             gamecrc = :gamecrc,
+            haspassword = :haspassword,
             created = :created
         WHERE id = :id');
         $this->clearOld();
@@ -113,6 +114,7 @@ class Registry {
         $this->updateQuery->bindParam(':coreversion', $entry['coreversion'], PDO::PARAM_STR);
         $this->updateQuery->bindParam(':gamename', $entry['gamename'], PDO::PARAM_STR);
         $this->updateQuery->bindParam(':gamecrc', $entry['gamecrc'], PDO::PARAM_STR);
+        $this->updateQuery->bindParam(':haspassword', $entry['haspassword'], PDO::PARAM_BOOL);
         $this->updateQuery->bindParam(':created', $entry['created'], PDO::PARAM_INT);
         return $this->updateQuery->execute();
     }
