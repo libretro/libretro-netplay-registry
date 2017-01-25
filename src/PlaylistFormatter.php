@@ -20,6 +20,7 @@ class PlaylistFormatter {
 				$entry['coreversion'],
 				$entry['gamename'],
 				$entry['gamecrc'],
+				$entry['haspassword'] ? '1' : '0',
 				$entry['created'],
 			), "\n"));
 		}
