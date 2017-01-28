@@ -55,6 +55,6 @@ class InputParser
      */
     public function cleanProperty($input = '')
     {
-        return preg_replace('/[^ .A-Za-z0-9\-\[\]()]/', '', $input);
+        return preg_replace('/[^ .&A-Za-z0-9\-\[\]()]/', '', $input);
     }
 }

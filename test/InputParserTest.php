@@ -26,8 +26,8 @@ class InputParserTest extends TestCase
     public function testCleanProperty()
     {
         $inputParser = new InputParser();
-        $expected = 's Streets of Rage 2 (USA) [b] scriptdocument.location.hrefhttplibretro.comscript';
-        $input = '%s Streets of Rage 2 (USA) [b] <script>document.location.href="http://libretro.com"</script>';
+        $expected = 's Streets & Rage 2 (USA) [b] scriptdocument.location.hrefhttplibretro.comscript';
+        $input = '%s Streets & Rage 2 (USA) [b] <script>document.location.href="http://libretro.com"</script>';
         $actual = $inputParser->cleanProperty($input);
         $this->assertEquals($expected, $actual);
     }
