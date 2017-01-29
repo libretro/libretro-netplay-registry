@@ -18,10 +18,17 @@ if (empty($entries)) {
     $contents = '<div class="alert alert-info" role="alert">There are currently no lobbies open.</div>';
 } else {
     // Table header.
-    $contents = '<table class="table"><thead><tr><th>Username</th><th>Game</th><th>Core</th></thead><tbody>';
+    $contents = '<table class="table"><thead><tr>';
+    $contents .= '<th>Username</th><th>Game</th><th>Core</th><th>Connectable</th></thead><tbody>';
     // Loop through every row.
     foreach ($entries as $entry) {
-        $contents .= "<tr><th>{$entry['username']}</th><td>{$entry['gamename']}</td><td>{$entry['corename']}</td></tr>";
+        $connectable = $entry['connectable'] ? '&checkmark;' : '&cross;';
+        $contents .= '<tr>';
+        $contents .= "<th>{$entry['username']}</th>";
+        $contents .= "<td>{$entry['gamename']}</td>";
+        $contents .= "<td>{$entry['corename']}</td>";
+        $contents .= "<td>{$connectable}</td>";
+        $contents .= '</tr>';
     }
     // Table footer.
     $contents .= '</tbody></table>';
