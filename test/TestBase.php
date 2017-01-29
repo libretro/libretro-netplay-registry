@@ -35,6 +35,7 @@ class TestBase extends TestCase
             'coreversion' => $this->randomString(3),
             'gamename' => $this->randomString(5),
             'gamecrc' => $this->randomString(7),
+            'haspassword' => true,
         );
         return $entry;
     }

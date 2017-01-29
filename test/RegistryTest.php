@@ -16,9 +16,13 @@ class RegistryTest extends TestBase
     public function testSelectAll()
     {
         $username = $this->randomString(20);
-        $this->testInsert($username);
+        $entry = $this->randomEntry($username);
+        $this->registry->insert($entry, false);
         $result = $this->registry->selectAll();
+        print_r($result);
         $this->assertEquals($username, $result[0]['username']);
+        $this->assertEquals(0, $result[0]['connectable']);
+        $this->assertEquals(true, $result[0]['haspassword']);
     }
 
     public function testInsertDuplicate()

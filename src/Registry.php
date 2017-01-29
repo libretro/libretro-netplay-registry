@@ -24,6 +24,7 @@ class Registry
             gamename TEXT,
             gamecrc TEXT,
             haspassword BOOLEAN,
+            connectable BOOLEAN,
             created INTEGER
         )');
 
@@ -37,6 +38,7 @@ class Registry
                 gamename,
                 gamecrc,
                 haspassword,
+                connectable,
                 created
             )
             VALUES (
@@ -48,6 +50,7 @@ class Registry
                 :gamename,
                 :gamecrc,
                 :haspassword,
+                :connectable,
                 :created
             )
         ');
@@ -62,6 +65,7 @@ class Registry
             gamename = :gamename,
             gamecrc = :gamecrc,
             haspassword = :haspassword,
+            connectable = :connectable,
             created = :created
             WHERE id = :id
         ');
@@ -79,7 +83,11 @@ class Registry
         if (!isset($newEntry['created'])) {
             $newEntry['created'] = time();
         }
-        $newEntry['haspassword'] = isset($newEntry['haspassword']) ? empty($newEntry['haspassword']) : false;
+        $newEntry['haspassword'] = !empty($newEntry['haspassword']);
+        // Find if it's connectable.
+        if (!isset($newEntry['connectable'])) {
+            $newEntry['connectable'] = false;
+        }
 
         $added = false;
         $entries = $this->selectAll();
@@ -110,6 +118,7 @@ class Registry
             $this->insert->bindParam(':gamename', $newEntry['gamename'], PDO::PARAM_STR);
             $this->insert->bindParam(':gamecrc', $newEntry['gamecrc'], PDO::PARAM_STR);
             $this->insert->bindParam(':haspassword', $newEntry['haspassword'], PDO::PARAM_BOOL);
+            $this->insert->bindParam(':connectable', $newEntry['connectable'], PDO::PARAM_BOOL);
             $this->insert->bindParam(':created', $newEntry['created'], PDO::PARAM_INT);
             return $this->insert->execute();
         }
@@ -127,6 +136,7 @@ class Registry
         $this->updateQuery->bindParam(':gamename', $entry['gamename'], PDO::PARAM_STR);
         $this->updateQuery->bindParam(':gamecrc', $entry['gamecrc'], PDO::PARAM_STR);
         $this->updateQuery->bindParam(':haspassword', $entry['haspassword'], PDO::PARAM_BOOL);
+        $this->insert->bindParam(':connectable', $newEntry['connectable'], PDO::PARAM_BOOL);
         $this->updateQuery->bindParam(':created', $entry['created'], PDO::PARAM_INT);
         return $this->updateQuery->execute();
     }

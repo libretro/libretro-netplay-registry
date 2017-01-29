@@ -24,7 +24,8 @@ class PlaylistFormatterTest extends TestBase
             $entry['gamename'],
             $entry['gamecrc'],
             $entry['haspassword'],
-            $entry['created']
+            $entry['connectable'],
+            $entry['created'],
         );
         $output = implode($properties, "\n");
         $playlist = new PlaylistFormatter($this->registry);

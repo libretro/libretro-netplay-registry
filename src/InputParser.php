@@ -46,6 +46,8 @@ class InputParser
         if (isset($this->input['haspassword'])) {
             $addedEntry['haspassword'] = empty($this->input['haspassword']);
         }
+        // TODO: Add Conenctable flag
+        $addedEntry['connectable'] = false;
 
         return $addedEntry;
     }
