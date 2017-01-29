@@ -84,10 +84,6 @@ class Registry
             $newEntry['created'] = time();
         }
         $newEntry['haspassword'] = !empty($newEntry['haspassword']);
-        // Find if it's connectable.
-        if (!isset($newEntry['connectable'])) {
-            $newEntry['connectable'] = false;
-        }
 
         $added = false;
         $entries = $this->selectAll();
@@ -110,6 +106,10 @@ class Registry
         }
 
         if (!$added) {
+            // Find if it's connectable.
+            if (!isset($newEntry['connectable'])) {
+                $newEntry['connectable'] = $this->isConnectable($newEntry['ip'], $newEntry['port']);
+            }
             $this->insert->bindParam(':username', $newEntry['username'], PDO::PARAM_STR);
             $this->insert->bindParam(':ip', $newEntry['ip'], PDO::PARAM_STR);
             $this->insert->bindParam(':port', $newEntry['port'], PDO::PARAM_INT);
@@ -152,5 +152,16 @@ class Registry
     {
         $this->select->execute();
         return $this->select->fetchAll();
+    }
+
+    public function isConnectable($ip, $port)
+    {
+        // Attempt to open the port.
+        $fp = @fsockopen($ip, $port);
+        if ($fp) {
+            fclose($fp);
+            return true;
+        }
+        return false;
     }
 }

@@ -30,7 +30,7 @@ class TestBase extends TestCase
         $entry = array(
             'username' => isset($username) ? $username : $this->randomString(10),
             'ip' => '127.0.0.1',
-            'port' => '8080',
+            'port' => '80',
             'corename' => $this->randomString(10),
             'coreversion' => $this->randomString(3),
             'gamename' => $this->randomString(5),
