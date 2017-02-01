@@ -31,4 +31,18 @@ class InputParserTest extends TestCase
         $actual = $inputParser->cleanProperty($input);
         $this->assertEquals($expected, $actual);
     }
+
+    public function testAutofillUsername()
+    {
+        $inputParser = new InputParser(array(
+            'corename' => 'PicoDrive',
+            'coreversion' => '1.0.0',
+            'gamename' => 'Streets Of Rage 2',
+            'gamecrc' => 'dsfjkldsf'
+        ));
+
+        $entry = $inputParser->getEntry();
+
+        $this->assertEquals('0.0.0.0', $entry['username']);
+    }
 }
