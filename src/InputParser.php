@@ -15,7 +15,8 @@ class InputParser
      */
     public function getEntry()
     {
-        $entryProperties = array('username', 'corename', 'coreversion', 'gamename', 'gamecrc');
+        // Retrieve the required properties.
+        $entryProperties = array('corename', 'coreversion', 'gamename', 'gamecrc');
         $addedEntry = array();
         // Fill in all the properties.
         foreach ($entryProperties as $property) {
@@ -31,11 +32,26 @@ class InputParser
             }
         }
 
+        // If any of the properties were not there, return null.
         if (empty($addedEntry)) {
             return null;
         }
+
+        // Fill in the remaining fields.
         $addedEntry['ip'] = isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '0.0.0.0';
-        $addedEntry['time'] = time();
+
+        // Assign the username.
+        $username = isset($this->input['username']) ? $this->input['username'] : '';
+        $username = $this->cleanProperty($username);
+        if (empty($username)) {
+            $username = $addedEntry['ip'];
+        }
+        $addedEntry['username'] = $username;
+
+        // Creation time.
+        $addedEntry['created'] = time();
+
+        // Find the port.
         $addedEntry['port'] = '55435';
         if (isset($this->input['port'])) {
             $port = $this->cleanProperty($this->input['port']);
@@ -43,6 +59,8 @@ class InputParser
                 $addedEntry['port'] = $port;
             }
         }
+
+        // Whether or not the server requires a password.
         if (isset($this->input['haspassword'])) {
             $addedEntry['haspassword'] = empty($this->input['haspassword']);
         }
@@ -55,6 +73,6 @@ class InputParser
      */
     public function cleanProperty($input = '')
     {
-        return preg_replace('/[^-a-zA-Z0-9-()[]!,&\'._ ]/', '', $input);
+        return preg_replace('/[^ .&A-Za-z0-9\-\[\]()]/', '', $input);
     }
 }
