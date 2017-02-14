@@ -6,7 +6,7 @@
 use RobLoach\LibretroNetplayRegistry\Registry;
 
 // Autoload the required classes.
-require_once __DIR__ . '/src/autoload.php';
+require __DIR__ . '/src/autoload.php';
 
 // Load the entries from the registry.
 $registry = new Registry();
