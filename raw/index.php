@@ -8,7 +8,7 @@ use RobLoach\LibretroNetplayRegistry\InputParser;
 header('Content-Type: text/plain');
 
 // Load the classes.
-require_once __DIR__ . '/../src/autoload.php';
+require __DIR__ . '/../src/autoload.php';
 
 // Load the registry.
 $registry = new Registry('../.registry');
