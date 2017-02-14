@@ -23,3 +23,11 @@ Use [Docker Compose](https://docs.docker.com/compose/) to set up a development e
 ## TODO
 
 - Add some validation and security behind adding entries
+
+## Hosting
+
+The server, hosted at http://lobby.libretro.com is running the following software:
+
+- PHP 5.5.9
+- SQLite3
+- Apache
