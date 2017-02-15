@@ -25,7 +25,7 @@ class PlaylistFormatter
                 $entry['coreversion'],
                 $entry['gamename'],
                 $entry['gamecrc'],
-                $entry['haspassword'] ? '1' : '0',
+                //$entry['haspassword'] ? '1' : '0',
                 $entry['created'],
             );
             array_push($output, implode($properties, "\n"));
