@@ -2,14 +2,26 @@
 
 namespace RobLoach\LibretroNetplayRegistry;
 
+/**
+ * Class InputParser.
+ */
 class InputParser
 {
+    /**
+     * @var array
+     */
     private $input;
 
+    /**
+     * InputParser constructor.
+     *
+     * @param array $input
+     */
     public function __construct($input = array())
     {
         $this->input = empty($input) ? $_GET : $input;
     }
+
     /**
      * Reads the GET parameters to load a new entry.
      */
@@ -70,6 +82,10 @@ class InputParser
 
     /**
      * Cleans the given GET parameter.
+     *
+     * @param string $input
+     *
+     * @return mixed
      */
     public function cleanProperty($input = '')
     {
