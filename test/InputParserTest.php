@@ -16,7 +16,7 @@ class InputParserTest extends TestCase
             'username' => 'RobLoach',
             'corename' => 'PicoDrive',
             'coreversion' => '1.0.0',
-            'gamename' => 'Streets Of Rage 2',
+            'gamename' => 'Streets Of _ Rage 2',
             'gamecrc' => 'dsfjkldsf'
         ));
 
@@ -40,7 +40,7 @@ class InputParserTest extends TestCase
         $inputParser = new InputParser(array(
             'corename' => 'PicoDrive',
             'coreversion' => '1.0.0',
-            'gamename' => 'Streets Of Rage 2',
+            'gamename' => 'Streets Of _ Rage 2',
             'gamecrc' => 'dsfjkldsf'
         ));
 
