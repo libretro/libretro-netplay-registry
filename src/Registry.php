@@ -4,13 +4,36 @@ namespace RobLoach\LibretroNetplayRegistry;
 
 use \PDO;
 
+/**
+ * Class Registry.
+ */
 class Registry
 {
-    private $db = null;
+    /**
+     * @var PDO
+     */
+    private $db;
+
+    /**
+     * @var \PDOStatement
+     */
     private $insert;
+
+    /**
+     * @var \PDOStatement
+     */
     private $select;
+
+    /**
+     * @var \PDOStatement
+     */
     private $clearOldEntries;
 
+    /**
+     * Registry constructor.
+     *
+     * @param string $name
+     */
     public function __construct($name = '.registry')
     {
         $this->db = new PDO("sqlite:$name.sqlite");
@@ -68,6 +91,12 @@ class Registry
         $this->clearOld();
     }
 
+    /**
+     * @param array $newEntry
+     * @param bool  $throttle
+     *
+     * @return bool
+     */
     public function insert($newEntry, $throttle = true)
     {
         if (!isset($newEntry['ip'])) {
@@ -116,6 +145,11 @@ class Registry
         return false;
     }
 
+    /**
+     * @param $entry
+     *
+     * @return bool
+     */
     public function update($entry)
     {
         $this->updateQuery->bindParam(':id', $entry['id'], PDO::PARAM_INT);
@@ -131,6 +165,9 @@ class Registry
         return $this->updateQuery->execute();
     }
 
+    /**
+     * @param int $age
+     */
     public function clearOld($age = 120)
     {
         $time = time() - $age;
@@ -138,6 +175,9 @@ class Registry
         $this->clearOldEntries->execute();
     }
 
+    /**
+     * @return array
+     */
     public function selectAll()
     {
         $this->select->execute();

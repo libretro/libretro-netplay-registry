@@ -5,6 +5,9 @@ namespace RobLoach\LibretroNetplayRegistry\Test;
 use PHPUnit\Framework\TestCase;
 use RobLoach\LibretroNetplayRegistry\InputParser;
 
+/**
+ * Class InputParserTest.
+ */
 class InputParserTest extends TestCase
 {
     public function testGetEntry()

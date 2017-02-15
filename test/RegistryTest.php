@@ -4,8 +4,14 @@ namespace RobLoach\LibretroNetplayRegistry\Test;
 
 use PHPUnit\Framework\TestCase;
 
+/**
+ * Class RegistryTest.
+ */
 class RegistryTest extends TestBase
 {
+    /**
+     * @param null $username
+     */
     public function testInsert($username = null)
     {
         $entry = $this->randomEntry($username);

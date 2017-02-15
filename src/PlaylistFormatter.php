@@ -4,17 +4,32 @@ namespace RobLoach\LibretroNetplayRegistry;
 
 use RobLoach\LibretroNetplayRegistry\Registry;
 
+/**
+ * Class PlaylistFormatter.
+ */
 class PlaylistFormatter
 {
+    /**
+     * @var Registry
+     */
     private $registry;
     private $testing;
 
+    /**
+     * PlaylistFormatter constructor.
+     *
+     * @param Registry $registry
+     * @param bool $testing Whether or not to include fields currently in testing.
+     */
     public function __construct(Registry $registry, $testing = false)
     {
         $this->registry = $registry;
         $this->testing = $testing;
     }
 
+    /**
+     * @return string
+     */
     public function __toString()
     {
         $output = array();

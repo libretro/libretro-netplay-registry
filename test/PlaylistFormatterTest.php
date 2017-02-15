@@ -6,6 +6,9 @@ use PHPUnit\Framework\TestCase;
 use RobLoach\LibretroNetplayRegistry\PlaylistFormatter;
 use RobLoach\LibretroNetplayRegistry\Test\TestBase;
 
+/**
+ * Class PlaylistFormatterTest.
+ */
 class PlaylistFormatterTest extends TestBase
 {
     public function testToString()
