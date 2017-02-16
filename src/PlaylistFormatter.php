@@ -4,15 +4,29 @@ namespace RobLoach\LibretroNetplayRegistry;
 
 use RobLoach\LibretroNetplayRegistry\Registry;
 
+/**
+ * Class PlaylistFormatter.
+ */
 class PlaylistFormatter
 {
+    /**
+     * @var Registry
+     */
     private $registry;
 
+    /**
+     * PlaylistFormatter constructor.
+     *
+     * @param Registry $registry
+     */
     public function __construct(Registry $registry)
     {
         $this->registry = $registry;
     }
 
+    /**
+     * @return string
+     */
     public function __toString()
     {
         $output = array();
@@ -25,8 +39,8 @@ class PlaylistFormatter
                 $entry['coreversion'],
                 $entry['gamename'],
                 $entry['gamecrc'],
-                $entry['haspassword'] ? '1' : '0',
-                $entry['connectable'] ? '1' : '0',
+                //$entry['haspassword'] ? '1' : '0',
+                //$entry['connectable'] ? '1' : '0',
                 $entry['created'],
             );
             array_push($output, implode($properties, "\n"));

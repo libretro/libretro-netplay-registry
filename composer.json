@@ -14,7 +14,8 @@
             "phpcs --standard=PSR2 test src raw index.php"
         ],
         "phpcbf": "phpcbf index.php test src raw",
-        "clean": "rm -rf .*.sqlite"
+        "clean": "rm -rf .*.sqlite",
+        "start": "php -S localhost:8080 # Visit http://localhost:8080"
     },
     "minimum-stability": "stable",
     "require-dev": {

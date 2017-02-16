@@ -6,6 +6,9 @@ use PHPUnit\Framework\TestCase;
 use RobLoach\LibretroNetplayRegistry\PlaylistFormatter;
 use RobLoach\LibretroNetplayRegistry\Test\TestBase;
 
+/**
+ * Class PlaylistFormatterTest.
+ */
 class PlaylistFormatterTest extends TestBase
 {
     public function testToString()
@@ -23,9 +26,9 @@ class PlaylistFormatterTest extends TestBase
             $entry['coreversion'],
             $entry['gamename'],
             $entry['gamecrc'],
-            $entry['haspassword'],
-            $entry['connectable'],
-            $entry['created'],
+            //$entry['haspassword'],
+            //$entry['connectable'],
+            $entry['created']
         );
         $output = implode($properties, "\n");
         $playlist = new PlaylistFormatter($this->registry);

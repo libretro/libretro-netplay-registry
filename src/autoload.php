@@ -1,7 +1,7 @@
 <?php
 
-require_once __DIR__ . '/InputParser.php';
-require_once __DIR__ . '/Registry.php';
-require_once __DIR__ . '/PlaylistFormatter.php';
+require __DIR__ . '/InputParser.php';
+require __DIR__ . '/Registry.php';
+require __DIR__ . '/PlaylistFormatter.php';
 
 return true;

@@ -5,9 +5,19 @@ namespace RobLoach\LibretroNetplayRegistry\Test;
 use PHPUnit\Framework\TestCase;
 use RobLoach\LibretroNetplayRegistry\Registry;
 
+/**
+ * Class TestBase.
+ */
 class TestBase extends TestCase
 {
+    /**
+     * @var Registry
+     */
     protected $registry;
+
+    /**
+     * @var string
+     */
     protected $name;
 
     protected function setUp()
@@ -25,6 +35,11 @@ class TestBase extends TestCase
         unlink("{$this->name}.sqlite");
     }
 
+    /**
+     * @param null $username
+     *
+     * @return array
+     */
     protected function randomEntry($username = null)
     {
         $entry = array(
@@ -40,6 +55,11 @@ class TestBase extends TestCase
         return $entry;
     }
 
+    /**
+     * @param int $length
+     *
+     * @return string
+     */
     protected function randomString($length = 5)
     {
         $chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
