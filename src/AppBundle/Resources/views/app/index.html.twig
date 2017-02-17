@@ -22,10 +22,9 @@
                 <tbody>
                 {% for entry in entries %}
                     <tr>
-                        {# TODO: Create entry entity and print out data. #}
-                        <td>Dummy</td>
-                        <td>Dummy</td>
-                        <td>Dummy</td>
+                        <td>{{ entry.username }}</td>
+                        <td>{{ entry.gameName }}</td>
+                        <td>{{ entry.coreName }}</td>
                     </tr>
                 {% endfor %}
                 </tbody>
