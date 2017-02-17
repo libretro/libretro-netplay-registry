@@ -1,0 +1,55 @@
+{% spaceless %}
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        {% block seo %}
+        {% endblock %}
+        <title>{% block title %}RetroArch Lobby Browser{% endblock %}</title>
+        {% block stylesheets %}
+            <link rel="stylesheet"
+                  href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+                  integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
+                  crossorigin="anonymous">
+        {% endblock %}
+        <link rel="icon" href="https://www.libretro.com/wp-content/uploads/2016/01/ic_launcher.png" sizes="32x32"/>
+        <link rel="icon" href="https://www.libretro.com/wp-content/uploads/2016/01/ic_launcher.png" sizes="192x192"/>
+        <link rel="apple-touch-icon-precomposed"
+              href="https://www.libretro.com/wp-content/uploads/2016/01/ic_launcher.png"/>
+    </head>
+    <body>
+    <header>
+        <div class="container">
+            <div class="jumbotron">
+                <h1 class="display-4">RetroArch Lobby Browser</h1>
+                <p class="lead">Currently available netplay rooms in <a href="https://libretro.com" target="_blank">RetroArch</a>.</p>
+                <hr class="my-4">
+                <p class="lead">
+                    <a class="btn btn-primary btn-lg"
+                       href="https://libretro.com/" role="button" target="_blank">RetroArch</a>
+                    <a class="btn btn-info btn-lg"
+                       href="https://www.youtube.com/watch?v=oh7hhoOBg54" role="button" target="_blank">How to Join</a>
+                    <a class="btn btn-info btn-lg"
+                       href="https://www.youtube.com/watch?v=n6aF0wNcm7E" role="button" target="_blank">How to Host</a>
+                </p>
+            </div>
+        </div>
+    </header>
+    <main>
+        {% block body %}{% endblock %}
+    </main>
+    <footer>
+
+    </footer>
+    {% block javascripts %}
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
+                integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
+                crossorigin="anonymous"></script>
+    {% endblock %}
+    </body>
+    </html>
+{% endspaceless %}

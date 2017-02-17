@@ -12,6 +12,8 @@ use Symfony\Component\HttpFoundation\Request;
 class AppController extends Controller
 {
     /**
+     * @TODO: We can remove the fallback, once the API changed on the client-side. RetroArch
+     * @Route("/index.php", name="homepage_fallback")
      * @Route("/", name="homepage")
      *
      * @param Request $request
@@ -20,9 +22,14 @@ class AppController extends Controller
      */
     public function indexAction(Request $request)
     {
-        // replace this example code with whatever you need
-        return $this->render('default/index.html.twig', [
-            'base_dir' => realpath($this->getParameter('kernel.root_dir').'/..').DIRECTORY_SEPARATOR,
-        ]);
+        $route   = $request->get('_route');
+        $entries = ['',  ''];
+
+        return $this->render(
+            '@App/app/index.html.twig', [
+                'isFallback' => $route === 'homepage_fallback',
+                'entries'    => $entries,
+            ]
+        );
     }
 }

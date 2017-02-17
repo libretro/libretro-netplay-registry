@@ -1,0 +1,35 @@
+{% extends '@App/base.html.twig' %}
+
+{% block seo %}
+    {% if isFallback %}
+        <link rel="canonical" href="/">
+    {% endif %}
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        {% if entries is empty %}
+            <div class="alert alert-info" role="alert">There are currently no lobbies open.</div>
+        {% else %}
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Username</th>
+                        <th>Game</th>
+                        <th>Core</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for entry in entries %}
+                    <tr>
+                        {# TODO: Create entry entity and print out data. #}
+                        <td>Dummy</td>
+                        <td>Dummy</td>
+                        <td>Dummy</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    </div>
+{% endblock %}
