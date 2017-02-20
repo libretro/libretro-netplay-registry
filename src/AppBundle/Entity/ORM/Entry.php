@@ -3,6 +3,7 @@
 namespace AppBundle\Entity\ORM;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Entry.
@@ -24,6 +25,8 @@ class Entry
      * @var string
      *
      * @ORM\Column(type="string")
+     *
+     * @Assert\NotBlank()
      */
     private $username;
 
@@ -31,6 +34,8 @@ class Entry
      * @var string
      *
      * @ORM\Column(type="string")
+     *
+     * @Assert\NotBlank()
      */
     private $ip;
 
@@ -45,6 +50,8 @@ class Entry
      * @var string
      *
      * @ORM\Column(type="string")
+     *
+     * @Assert\NotBlank()
      */
     private $gameName;
 
@@ -52,6 +59,8 @@ class Entry
      * @var string
      *
      * @ORM\Column(type="string")
+     *
+     * @Assert\NotBlank()
      */
     private $gameCRC;
 
@@ -59,6 +68,8 @@ class Entry
      * @var string
      *
      * @ORM\Column(type="string")
+     *
+     * @Assert\NotBlank()
      */
     private $coreName;
 
@@ -66,6 +77,8 @@ class Entry
      * @var string
      *
      * @ORM\Column(type="string")
+     *
+     * @Assert\NotBlank()
      */
     private $coreVersion;
 
@@ -85,10 +98,24 @@ class Entry
 
     /**
      * Entry constructor.
+     *
+     * @param string $username
+     * @param string $coreName
+     * @param string $coreVersion
+     * @param string $gameName
+     * @param string $gameCRC
+     * @param bool   $hasPassword
      */
-    private function __construct()
+    private function __construct($username, $coreName, $coreVersion, $gameName, $gameCRC, bool $hasPassword = false)
     {
         $this->createdAt = new \DateTime();
+
+        $this->username    = $username;
+        $this->coreName    = $coreName;
+        $this->coreVersion = $coreVersion;
+        $this->gameName    = $gameName;
+        $this->gameCRC     = $gameCRC;
+        $this->hasPassword = $hasPassword;
     }
 
     /**
@@ -104,22 +131,14 @@ class Entry
      * @return Entry
      */
     static public function fromSubmission(
-        string $username,
-        string $coreName,
-        string $coreVersion,
-        string $gameName,
-        string $gameCRC,
+        $username,
+        $coreName,
+        $coreVersion,
+        $gameName,
+        $gameCRC,
         bool $hasPassword = false
     ): Entry {
-        $entry = new self();
-        $entry->setUsername($username);
-        $entry->setCoreName($coreName);
-        $entry->setCoreVersion($coreVersion);
-        $entry->setGameName($gameName);
-        $entry->setGameCRC($gameCRC);
-        $entry->setHasPassword($hasPassword);
-
-        return $entry;
+        return new self($username, $coreName, $coreVersion, $gameName, $gameCRC, $hasPassword);
     }
 
     /**
@@ -133,7 +152,7 @@ class Entry
     /**
      * @return string
      */
-    public function getUsername(): string
+    public function getUsername()
     {
         return $this->username;
     }
@@ -141,7 +160,7 @@ class Entry
     /**
      * @param string $username
      */
-    public function setUsername(string $username)
+    public function setUsername($username)
     {
         $this->username = $username;
     }
@@ -149,7 +168,7 @@ class Entry
     /**
      * @return string
      */
-    public function getIp(): string
+    public function getIp()
     {
         return $this->ip;
     }
@@ -157,7 +176,7 @@ class Entry
     /**
      * @param string $ip
      */
-    public function setIp(string $ip)
+    public function setIp($ip)
     {
         $this->ip = $ip;
     }
@@ -165,7 +184,7 @@ class Entry
     /**
      * @return string
      */
-    public function getPort(): string
+    public function getPort()
     {
         return $this->port;
     }
@@ -173,7 +192,7 @@ class Entry
     /**
      * @param string $port
      */
-    public function setPort(string $port)
+    public function setPort($port)
     {
         $this->port = $port;
     }
@@ -181,7 +200,7 @@ class Entry
     /**
      * @return string
      */
-    public function getGameName(): string
+    public function getGameName()
     {
         return $this->gameName;
     }
@@ -189,7 +208,7 @@ class Entry
     /**
      * @param string $gameName
      */
-    public function setGameName(string $gameName)
+    public function setGameName($gameName)
     {
         $this->gameName = $gameName;
     }
@@ -197,7 +216,7 @@ class Entry
     /**
      * @return string
      */
-    public function getGameCRC(): string
+    public function getGameCRC()
     {
         return $this->gameCRC;
     }
@@ -205,7 +224,7 @@ class Entry
     /**
      * @param string $gameCRC
      */
-    public function setGameCRC(string $gameCRC)
+    public function setGameCRC($gameCRC)
     {
         $this->gameCRC = $gameCRC;
     }
@@ -213,7 +232,7 @@ class Entry
     /**
      * @return string
      */
-    public function getCoreName(): string
+    public function getCoreName()
     {
         return $this->coreName;
     }
@@ -221,7 +240,7 @@ class Entry
     /**
      * @param string $coreName
      */
-    public function setCoreName(string $coreName)
+    public function setCoreName($coreName)
     {
         $this->coreName = $coreName;
     }
@@ -229,7 +248,7 @@ class Entry
     /**
      * @return string
      */
-    public function getCoreVersion(): string
+    public function getCoreVersion()
     {
         return $this->coreVersion;
     }
@@ -237,7 +256,7 @@ class Entry
     /**
      * @param string $coreVersion
      */
-    public function setCoreVersion(string $coreVersion)
+    public function setCoreVersion($coreVersion)
     {
         $this->coreVersion = $coreVersion;
     }
@@ -245,7 +264,7 @@ class Entry
     /**
      * @return bool
      */
-    public function hasPassword(): bool
+    public function hasPassword()
     {
         return $this->hasPassword;
     }
@@ -253,7 +272,7 @@ class Entry
     /**
      * @param bool $hasPassword
      */
-    public function setHasPassword(bool $hasPassword)
+    public function setHasPassword($hasPassword)
     {
         $this->hasPassword = $hasPassword;
     }
