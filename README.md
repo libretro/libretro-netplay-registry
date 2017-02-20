@@ -5,7 +5,7 @@ Stores a netplay registry for libretro.
 
 # Requirements
 
-* PHP above 5.6
+* PHP 7 or higher
 * [Composer](https://getcomposer.org/download/)
 * And the requirements that are checked with: `php bin/symfony_requirements`
 
