@@ -24,3 +24,10 @@ install:
 
 script:
   - phpunit
+  - composer test
+
+cache:
+  directories:
+    - vendor
+    - $HOME/.composer
+
