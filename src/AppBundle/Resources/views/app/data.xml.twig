@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<entries>
+    {% for entry in entries %}
+        <entry>
+                <username>{{ entry.username }}</username>
+                <ip>{{ entry.ip }}</ip>
+                <port>{{ entry.port }}</port>
+                <coreName>{{ entry.coreName }}</coreName>
+                <coreVersion>{{ entry.coreVersion }}</coreVersion>
+                <gameName>{{ entry.gameName }}</gameName>
+                <gameCRC>{{ entry.gameCRC }}</gameCRC>
+                <createdAt>{{ entry.createdAt|date('Y-m-d\\TH:i:sP') }}</createdAt>
+        </entry>
+    {% endfor %}
+</entries>

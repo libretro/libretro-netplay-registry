@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Entity\ORM;
+namespace AppBundle\Entity;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
@@ -16,7 +16,7 @@ class EntryTest extends WebTestCase
      */
     public function testGettersAndSetters()
     {
-        $entry = Entry::fromSubmission('steve', 'ParaLLEl', '1.0', 'Mario Kart 64', 'abc123');
+        $entry = Entry::fromSubmission('test', 'test', 'test', 'test', 'test');
         $entry->setHasPassword(true);
         $entry->setGameCRC('123456789');
         $entry->setGameName('Super Smash Bros.');

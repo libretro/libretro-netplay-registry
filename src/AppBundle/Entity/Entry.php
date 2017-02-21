@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Entity\ORM;
+namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Entity
  */
-class Entry
+class Entry implements \Serializable, \JsonSerializable
 {
     /**
      * @var int
@@ -35,7 +35,7 @@ class Entry
      *
      * @ORM\Column(type="string")
      *
-     * @Assert\NotBlank()
+     * @Assert\Ip()
      */
     private $ip;
 
@@ -86,6 +86,8 @@ class Entry
      * @var bool
      *
      * @ORM\Column(type="boolean")
+     *
+     * @Assert\Type("bool")
      */
     private $hasPassword;
 
@@ -93,52 +95,45 @@ class Entry
      * @var \DateTime
      *
      * @ORM\Column(type="datetime")
+     *
+     * @Assert\DateTime()
      */
     private $createdAt;
 
     /**
      * Entry constructor.
      *
-     * @param string $username
-     * @param string $coreName
-     * @param string $coreVersion
-     * @param string $gameName
-     * @param string $gameCRC
      * @param bool   $hasPassword
+     * @param string $port
      */
-    private function __construct($username, $coreName, $coreVersion, $gameName, $gameCRC, bool $hasPassword = false)
+    private function __construct(bool $hasPassword = false, string $port = '55435')
     {
-        $this->createdAt = new \DateTime();
-
-        $this->username    = $username;
-        $this->coreName    = $coreName;
-        $this->coreVersion = $coreVersion;
-        $this->gameName    = $gameName;
-        $this->gameCRC     = $gameCRC;
+        $this->createdAt   = new \DateTime();
         $this->hasPassword = $hasPassword;
+        $this->port        = $port;
     }
 
     /**
-     * Constructor used for submissions.
+     * Alternative constructor.
      *
-     * @param string $username
-     * @param string $coreName
-     * @param string $coreVersion
-     * @param string $gameName
-     * @param string $gameCRC
-     * @param bool   $hasPassword
+     * @param $username
+     * @param $coreName
+     * @param $coreVersion
+     * @param $gameName
+     * @param $gameCRC
      *
      * @return Entry
      */
-    static public function fromSubmission(
-        $username,
-        $coreName,
-        $coreVersion,
-        $gameName,
-        $gameCRC,
-        bool $hasPassword = false
-    ): Entry {
-        return new self($username, $coreName, $coreVersion, $gameName, $gameCRC, $hasPassword);
+    static public function fromSubmission($username, $coreName, $coreVersion, $gameName, $gameCRC)
+    {
+        $entry = new self();
+        $entry->setUsername($username);
+        $entry->setCoreName($coreName);
+        $entry->setCoreVersion($coreVersion);
+        $entry->setGameName($gameName);
+        $entry->setGameCRC($gameCRC);
+
+        return $entry;
     }
 
     /**
@@ -283,5 +278,67 @@ class Entry
     public function getCreatedAt(): \DateTime
     {
         return $this->createdAt;
+    }
+
+    /**
+     * @param \DateTime $createdAt
+     */
+    public function setCreatedAt(\DateTime $createdAt)
+    {
+        $this->createdAt = $createdAt;
+    }
+
+    /**
+     * Casts object to array.
+     */
+    public function serialize()
+    {
+        return serialize([
+            'username'    => $this->getUsername(),
+            'ip'          => $this->getIp(),
+            'port'        => $this->getPort(),
+            'coreName'    => $this->getCoreName(),
+            'coreVersion' => $this->getCoreVersion(),
+            'gameName'    => $this->getGameName(),
+            'gameCRC'     => $this->getGameCRC(),
+            'createdAt'   => $this->getCreatedAt()->format(\DateTime::ATOM),
+        ]);
+    }
+
+    /**
+     * Casts array to object.
+     *
+     * @param string $serialized
+     */
+    public function unserialize($serialized)
+    {
+        $data = $this->unserialize($serialized);
+        $this->setUsername($data['username']);
+        $this->setIp($data['ip']);
+        $this->setPort($data['port']);
+        $this->setCoreName($data['coreName']);
+        $this->setCoreVersion($data['coreVersion']);
+        $this->setGameName($data['gameName']);
+        $this->setGameCRC($data['gameCRC']);
+        $this->setCreatedAt(\DateTime::createFromFormat(\DateTime::ATOM, $data['createdAt']));
+    }
+
+    /**
+     * Uses camelCase.
+     *
+     * @return array
+     */
+    function jsonSerialize()
+    {
+        return [
+            'username'    => $this->getUsername(),
+            'ip'          => $this->getIp(),
+            'port'        => $this->getPort(),
+            'coreName'    => $this->getCoreName(),
+            'coreVersion' => $this->getCoreVersion(),
+            'gameName'    => $this->getGameName(),
+            'gameCRC'     => $this->getGameCRC(),
+            'createdAt'   => $this->getCreatedAt()->format(\DateTime::ATOM),
+        ];
     }
 }
