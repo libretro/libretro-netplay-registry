@@ -1,6 +1,6 @@
 <?php
 
-namespace Test\AppBundle\Entity;
+namespace Tests\AppBundle\Entity;
 
 use AppBundle\Entity\Entry;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;

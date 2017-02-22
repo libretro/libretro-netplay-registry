@@ -9,6 +9,8 @@ use Symfony\Component\DependencyInjection\Container;
 
 /**
  * Class AppControllerTest.
+ *
+ * @covers AppBundle\Controller\AppController
  */
 class AppControllerTest extends WebTestCase
 {

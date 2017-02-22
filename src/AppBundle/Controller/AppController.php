@@ -119,13 +119,9 @@ class AppController extends Controller
     }
 
     /**
-     * @TODO: We can abstract this route to another controller, so API and the Web-Frontend are seperated.
-     *
      * @TODO: We can remove the fallback, once the API changed on the client-side. RetroArch
-     * @Route("/raw/", defaults={"_format": "raw"}, name="raw_entry_api_fallback")
-     * @Route("/raw/data", defaults={"_format": "json"}, name="simplified_entry_api")
-     * @Route("/raw/data.{_format}", defaults={"_format": "json"}, requirements={"_format": "json|xml|raw"},
-     *                               name="full_entry_api")
+     * @Route("/raw/", defaults={"_format": "raw"}, name="raw_entry_api")
+     * @Route("/raw/index.php", defaults={"_format": "raw"}, name="raw_entry_api_fallback")
      *
      * @param Request $request
      * @param string  $_format
@@ -136,18 +132,9 @@ class AppController extends Controller
     {
         /** @var Entry[] $entries */
         $entries = $this->get('doctrine.orm.entity_manager')->getRepository('AppBundle:Entry')->findAll();
-        if ($_format === 'json') {
+        $response = $this->render('@App/api/entry/data.raw.twig', ['entries' => $entries]);
+        $response->headers->set('Content-Type', 'text/plain');
 
-            return new Response(json_encode($entries));
-        } elseif ($_format === 'xml') {
-
-            return $this->render('@App/app/data.xml.twig', ['entries' => $entries]);
-        } else {
-
-            $response = $this->render('@App/app/data.raw.twig', ['entries' => $entries]);
-            $response->headers->set('Content-Type', 'text/plain');
-
-            return $response;
-        }
+        return $response;
     }
 }
