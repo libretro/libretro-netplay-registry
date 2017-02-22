@@ -22,7 +22,6 @@ install:
 
 script:
   - phpunit
-  - composer test
 
 cache:
   directories:
