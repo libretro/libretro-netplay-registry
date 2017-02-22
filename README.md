@@ -30,6 +30,6 @@ Stores a netplay registry for libretro.
 
 The server, hosted at [http://lobby.libretro.com](http://lobby.libretro.com) is running the following software:
 
-PHP 5.5.9
-SQLite3
-Apache
+* PHP 5.5.9
+* SQLite3
+* Apache
