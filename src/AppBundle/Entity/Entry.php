@@ -312,7 +312,7 @@ class Entry implements \Serializable, \JsonSerializable
      */
     public function unserialize($serialized)
     {
-        $data = $this->unserialize($serialized);
+        $data = unserialize($serialized);
         $this->setUsername($data['username']);
         $this->setIp($data['ip']);
         $this->setPort($data['port']);

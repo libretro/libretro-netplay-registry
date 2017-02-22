@@ -53,6 +53,7 @@ class AppController extends Controller
                 ]
             )
             ->add(
+                /** @TODO: Add validation for CRCs. How are they build? */
                 'gamecrc', TextType::class, [
                     'constraints' => [
                         new NotBlank(),
