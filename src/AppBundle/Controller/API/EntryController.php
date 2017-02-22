@@ -37,7 +37,7 @@ class EntryController extends Controller
         } elseif ($_format === 'xml') {
 
             return $this->render('@App/api/entry/data.xml.twig', ['entries' => $entries]);
-        } else ($_format === 'raw') {
+        } else {
 
             $response = $this->render('@App/api/entry/data.raw.twig', ['entries' => $entries]);
             $response->headers->set('Content-Type', 'text/plain');
