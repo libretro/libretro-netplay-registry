@@ -12,6 +12,7 @@
 /var/sessions/*
 !var/sessions/.gitkeep
 !var/SymfonyRequirements.php
+!var/data
 /vendor/
 /web/bundles/
 *.sqlite
