@@ -40,13 +40,13 @@ class InputParserTest extends TestCase
         $inputParser = new InputParser(array(
             'corename' => 'PicoDrive',
             'coreversion' => '1.0.0',
-            'gamename' => 'Streets Of Rage 2 -:(){}[].,',
+            'gamename' => 'Streets Of Rage 2 -:(){}[!].,',
             'gamecrc' => 'dsfjkldsf'
         ));
 
         $entry = $inputParser->getEntry();
 
         $this->assertEquals('0.0.0.0', $entry['username']);
-        $this->assertEquals('Streets Of Rage 2 -:(){}[].,', $entry['gamename']);
+        $this->assertEquals('Streets Of Rage 2 -:(){}[!].,', $entry['gamename']);
     }
 }
