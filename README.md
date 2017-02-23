@@ -5,13 +5,13 @@ Stores a netplay registry for libretro.
 
 # Requirements
 
-* PHP 7 or higher
+* PHP 5.6 or higher
 * [Composer](https://getcomposer.org/download/)
 * And the requirements that are checked with: `php bin/symfony_requirements`
 
 # Installation
 
-1. Clone repository: `git clone https://github.com/RobLoach/libretro-netplay-registry.git`
+1. Clone repository: `git clone https://github.com/libretro/libretro-netplay-registry.git`
 2. Go into the directory: `cd libretro-netplay-registry`
 3. Install dependencies: `composer install`
 4. Create database: `php bin/console doctrine:database:create`
