@@ -106,11 +106,11 @@ class Entry implements \Serializable, \JsonSerializable
      * @param bool   $hasPassword
      * @param string $port
      */
-    private function __construct(bool $hasPassword = false, string $port = '55435')
+    private function __construct($hasPassword = false, $port = '55435')
     {
         $this->createdAt   = new \DateTime();
-        $this->hasPassword = $hasPassword;
-        $this->port        = $port;
+        $this->hasPassword = (bool) $hasPassword;
+        $this->port        = (string) $port;
     }
 
     /**
@@ -275,7 +275,7 @@ class Entry implements \Serializable, \JsonSerializable
     /**
      * @return \DateTime
      */
-    public function getCreatedAt(): \DateTime
+    public function getCreatedAt()
     {
         return $this->createdAt;
     }
@@ -293,16 +293,18 @@ class Entry implements \Serializable, \JsonSerializable
      */
     public function serialize()
     {
-        return serialize([
-            'username'    => $this->getUsername(),
-            'ip'          => $this->getIp(),
-            'port'        => $this->getPort(),
-            'coreName'    => $this->getCoreName(),
-            'coreVersion' => $this->getCoreVersion(),
-            'gameName'    => $this->getGameName(),
-            'gameCRC'     => $this->getGameCRC(),
-            'createdAt'   => $this->getCreatedAt()->format(\DateTime::ATOM),
-        ]);
+        return serialize(
+            [
+                'username'    => $this->getUsername(),
+                'ip'          => $this->getIp(),
+                'port'        => $this->getPort(),
+                'coreName'    => $this->getCoreName(),
+                'coreVersion' => $this->getCoreVersion(),
+                'gameName'    => $this->getGameName(),
+                'gameCRC'     => $this->getGameCRC(),
+                'createdAt'   => $this->getCreatedAt()->format(\DateTime::ATOM),
+            ]
+        );
     }
 
     /**
