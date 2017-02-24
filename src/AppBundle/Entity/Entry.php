@@ -12,6 +12,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Entry implements \Serializable, \JsonSerializable
 {
+    const DEFAULT_PORT = '55435';
+
     /**
      * @var int
      *
@@ -103,30 +105,32 @@ class Entry implements \Serializable, \JsonSerializable
     /**
      * Entry constructor.
      *
-     * @param bool   $hasPassword
-     * @param string $port
+     * @param bool|null   $hasPassword
+     * @param string|null $port
      */
-    private function __construct($hasPassword = false, $port = '55435')
+    private function __construct($hasPassword = null, $port = null)
     {
         $this->createdAt   = new \DateTime();
-        $this->hasPassword = (bool) $hasPassword;
-        $this->port        = (string) $port;
+        $this->hasPassword = (bool) ($hasPassword ?: false);
+        $this->port        = (string) $port ?: self::DEFAULT_PORT;
     }
 
     /**
      * Alternative constructor.
      *
-     * @param $username
-     * @param $coreName
-     * @param $coreVersion
-     * @param $gameName
-     * @param $gameCRC
+     * @param string      $username
+     * @param string      $coreName
+     * @param string      $coreVersion
+     * @param string      $gameName
+     * @param string      $gameCRC
+     * @param null|string $hasPassword
+     * @param null|string $port
      *
      * @return Entry
      */
-    static public function fromSubmission($username, $coreName, $coreVersion, $gameName, $gameCRC)
+    static public function fromSubmission($username, $coreName, $coreVersion, $gameName, $gameCRC, $hasPassword = null, $port = null)
     {
-        $entry = new self();
+        $entry = new self($hasPassword, $port);
         $entry->setUsername($username);
         $entry->setCoreName($coreName);
         $entry->setCoreVersion($coreVersion);

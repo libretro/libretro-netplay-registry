@@ -40,6 +40,17 @@ class EntryTest extends WebTestCase
         $this->assertEquals($entry->getPort(), '12345');
         $this->assertEquals($entry->getCreatedAt(), $dateTime);
         $this->assertTrue($entry->hasPassword());
+
+        $anotherEntry = Entry::fromSubmission('test', 'test', 'test', 'test', 'test', null, null);
+        $this->assertEquals(Entry::DEFAULT_PORT, $anotherEntry->getPort());
+        $this->assertFalse($anotherEntry->hasPassword());
+
+        $againAnotherEntry = Entry::fromSubmission('test', 'test', 'test', 'test', 'test', true, '12345');
+        $this->assertEquals('12345', $againAnotherEntry->getPort());
+        $this->assertTrue($againAnotherEntry->hasPassword());
+
+        $entry2 = Entry::fromSubmission('test', 'test', 'test', 'test', 'test', false);
+        $this->assertFalse($entry2->hasPassword());
     }
 
     public function testSerialization()

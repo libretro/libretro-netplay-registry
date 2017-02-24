@@ -3,9 +3,11 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Entry;
+use AppBundle\Validator\Constraints\Port;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -53,7 +55,7 @@ class AppController extends Controller
                 ]
             )
             ->add(
-                /** @TODO: Add validation for CRCs. How are they build? */
+            /** @TODO: Add validation for CRCs. How are they build? */
                 'gamecrc', TextType::class, [
                     'constraints' => [
                         new NotBlank(),
@@ -81,6 +83,17 @@ class AppController extends Controller
                     ],
                 ]
             )
+            ->add(
+                'port', TextType::class, [
+                    'constraints' => [
+                        new Port(),
+                    ],
+                ]
+
+            )
+            ->add(
+                'haspassword', CheckboxType::class
+            )
             ->setMethod('GET')
             ->getForm();
 
@@ -94,9 +107,11 @@ class AppController extends Controller
                     $form->get('corename')->getData(),
                     $form->get('coreversion')->getData(),
                     $form->get('gamename')->getData(),
-                    $form->get('gamecrc')->getData()
+                    $form->get('gamecrc')->getData(),
+                    $form->get('haspassword')->getData(),
+                    $form->get('port')->getData()
                 );
-                $ip    = $form->get('ip')->getData() ? $form->get('ip')->getData() : $request->getClientIp();
+                $ip    = $form->get('ip')->getData() ?: $request->getClientIp();
                 $entry->setIp($ip);
 
                 $errors = $this->get('validator')->validate($entry);
@@ -120,18 +135,17 @@ class AppController extends Controller
 
     /**
      * @TODO: We can remove the fallback, once the API changed on the client-side. RetroArch
-     * @Route("/raw/", defaults={"_format": "raw"}, name="raw_entry_api")
-     * @Route("/raw/index.php", defaults={"_format": "raw"}, name="raw_entry_api_fallback")
+     * @Route("/raw/", name="raw_entry_api")
+     * @Route("/raw/index.php", name="raw_entry_api_fallback")
      *
      * @param Request $request
-     * @param string  $_format
      *
      * @return Response
      */
-    public function rawAction(Request $request, $_format)
+    public function rawAction(Request $request)
     {
         /** @var Entry[] $entries */
-        $entries = $this->get('doctrine.orm.entity_manager')->getRepository('AppBundle:Entry')->findAll();
+        $entries  = $this->get('doctrine.orm.entity_manager')->getRepository('AppBundle:Entry')->findAll();
         $response = $this->render('@App/api/entry/data.raw.twig', ['entries' => $entries]);
         $response->headers->set('Content-Type', 'text/plain');
 
