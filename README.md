@@ -1,6 +1,8 @@
 libretro-netplay-registry
 =========================
 
+[![Build Status](https://travis-ci.org/libretro/libretro-netplay-registry.svg?branch=master)](https://travis-ci.org/libretro/libretro-netplay-registry)
+
 Stores a netplay registry for libretro.
 
 # Requirements
