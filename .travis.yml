@@ -14,3 +14,7 @@ cache:
   directories:
     - vendor
     - $HOME/.composer
+
+notifications:
+  email:
+    on_success: never
