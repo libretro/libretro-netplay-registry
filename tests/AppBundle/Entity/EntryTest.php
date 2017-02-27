@@ -8,7 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 /**
  * Class EntryTest.
  *
- * @covers AppBundle\Entity\Entry
+ * @covers Entry
  */
 class EntryTest extends WebTestCase
 {

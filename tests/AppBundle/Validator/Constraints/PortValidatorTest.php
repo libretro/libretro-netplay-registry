@@ -11,7 +11,7 @@ use Symfony\Component\DependencyInjection\Container;
 /**
  * Class PortValidatorTest.
  *
- * @covers AppBundle\Validator\Constraints\PortValidator
+ * @covers PortValidator
  */
 class PortValidatorTest extends WebTestCase
 {

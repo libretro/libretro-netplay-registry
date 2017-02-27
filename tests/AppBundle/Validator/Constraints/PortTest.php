@@ -7,7 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 /**
  * Class PortTest.
  *
- * @covers AppBundle\Validator\Constraints\Port
+ * @covers Port
  */
 class PortTest extends WebTestCase
 {

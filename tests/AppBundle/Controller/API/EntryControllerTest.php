@@ -10,7 +10,7 @@ use Symfony\Component\DependencyInjection\Container;
 /**
  * Class EntryControllerTest.
  *
- * @covers AppBundle\Controller\API\EntryController
+ * @covers EntryController
  */
 class EntryControllerTest extends WebTestCase
 {

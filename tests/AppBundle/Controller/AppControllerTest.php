@@ -10,14 +10,14 @@ use Symfony\Component\DependencyInjection\Container;
 /**
  * Class AppControllerTest.
  *
- * @covers AppBundle\Controller\AppController
+ * @covers AppController
  */
 class AppControllerTest extends WebTestCase
 {
-    /**
-     * @var Container
-     */
-    private $container;
+        /**
+         * @var Container
+         */
+        private $container;
 
     /**
      * @var Application
