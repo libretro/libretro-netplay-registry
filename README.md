@@ -33,3 +33,8 @@ The server, hosted at [http://lobby.libretro.com](http://lobby.libretro.com) is 
 * PHP 5.5.9
 * SQLite3
 * Apache
+
+# Documentation
+
+For more information visit the [documentation](./src/AppBundle/Resources/doc/index.rst).
+

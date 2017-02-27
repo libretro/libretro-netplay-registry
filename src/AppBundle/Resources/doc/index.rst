@@ -44,3 +44,21 @@ For a production environment consider this facts/guides:
 - Use the latest PHP version for more speed and security.
 - Use a PHP Accelerator such as APC.
 - Install dependencies with optimized autoloader: `composer dump-autoload --optimize`
+
+Cron-Job
+--------
+
+Entries are currently not beign cleared by the system who created it.
+To cleanup on "older" entries (2 minutes or older) you have to run the following command: `php bin/console app:entry:cleanup`.
+This command will delete the entries which are older than 2 minutes.
+
+To set this up automatically, you have to create a routine.
+I'll cover cron, because the majority of servers have cron/acron installed.
+
+Edit the cronjobs with running the following command:
+`crontab -e`
+
+Just add the following:
+`* * * * * php /path/to/the/application/bin/console app:entry:cleanup`
+
+This command will be executed every minute.
