@@ -11,7 +11,7 @@ Prerequisites
 
 - PHP 5.6 or higher
 - `Composer <https://getcomposer.org/download/>`_
-- And the requirements that are checked with: ``php bin/symfony_requirements``
+- And the requirements that are checked with: ``php bin/symfony_requirements`
 - A webserver such as Apache2, NGINX, ISS etc.
 
 
@@ -48,7 +48,7 @@ For a production environment consider this facts/guides:
 Cron-Job
 --------
 
-Entries are currently not beign cleared by the system who created it.
+Entries are currently not being cleared by the system who created it.
 To cleanup on "older" entries (2 minutes or older) you have to run the following command: ``php bin/console app:entry:cleanup``.
 This command will delete the entries which are older than 2 minutes.
 
