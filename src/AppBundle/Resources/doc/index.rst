@@ -11,7 +11,7 @@ Prerequisites
 
 - PHP 5.6 or higher
 - `Composer <https://getcomposer.org/download/>`_
-- And the requirements that are checked with: ``php bin/symfony_requirements`
+- And the requirements that are checked with: ``php bin/symfony_requirements``
 - A webserver such as Apache2, NGINX, ISS etc.
 
 
@@ -21,8 +21,8 @@ Installation
 IMPORTANT: For production installation read `this <#production-installation>`_.
 
 1. ``git clone https://github.com/libretro/libretro-netplay-registry``
-2. ``cd libretro-netplay-registry`
-3. ``composer install` During the installation, you can just skip through the prompts with enter-key.
+2. ``cd libretro-netplay-registry``
+3. ``composer install`` During the installation, you can just skip through the prompts with enter-key.
 
 
 Creating a vhost
