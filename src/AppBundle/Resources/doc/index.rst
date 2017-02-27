@@ -11,7 +11,7 @@ Prerequisites
 
 - PHP 5.6 or higher
 - `Composer <https://getcomposer.org/download/>`_
-- And the requirements that are checked with: ``php bin/symfony_requirements`
+- And the requirements that are checked with: ``php bin/symfony_requirements``
 - A webserver such as Apache2, NGINX, ISS etc.
 
 
