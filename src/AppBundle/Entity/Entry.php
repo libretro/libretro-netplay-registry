@@ -9,6 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Class Entry.
  *
  * @ORM\Entity
+ * @ORM\HasLifecycleCallbacks
  */
 class Entry implements \Serializable, \JsonSerializable
 {

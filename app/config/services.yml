@@ -7,3 +7,9 @@ services:
 #    service_name:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+
+    app.entry.listener:
+        class: AppBundle\EventListener\EntryManagementListener
+        arguments: ["%entry_limit_per_ip_username_combo%", "%entry_limit_per_ip%"]
+        tags:
+            - { name: doctrine.event_listener, event: postPersist }
