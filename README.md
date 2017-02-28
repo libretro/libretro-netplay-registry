@@ -30,4 +30,4 @@ The server, hosted at http://lobby.libretro.com is running the following softwar
 
 - PHP 5.5.9
 - SQLite3
-- Apache
+- Nginx
