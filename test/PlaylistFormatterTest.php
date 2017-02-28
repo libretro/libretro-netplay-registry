@@ -27,6 +27,7 @@ class PlaylistFormatterTest extends TestBase
             $entry['gamename'],
             $entry['gamecrc'],
             //$entry['haspassword'],
+            //$entry['connectable'],
             $entry['created']
         );
         $output = implode($properties, "\n");

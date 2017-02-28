@@ -21,10 +21,15 @@ class RegistryTest extends TestBase
 
     public function testSelectAll()
     {
+        // Add an entry to the registry.
         $username = $this->randomString(20);
-        $this->testInsert($username);
+        $entry = $this->randomEntry($username);
+        $this->registry->insert($entry, false);
+
+        // Test that select all is functional.
         $result = $this->registry->selectAll();
         $this->assertEquals($username, $result[0]['username']);
+        $this->assertEquals(true, $result[0]['haspassword']);
     }
 
     public function testInsertDuplicate()
@@ -43,5 +48,11 @@ class RegistryTest extends TestBase
         $result = $this->registry->selectAll();
         $this->assertEquals(1, sizeof($result));
         $this->assertEquals('1.2', $result[0]['coreversion']);
+    }
+
+    public function testIsConnectable()
+    {
+        $this->assertTrue($this->registry->isConnectable('google.com', 80));
+        $this->assertFalse($this->registry->isConnectable('127.0.0.1', 99999));
     }
 }
