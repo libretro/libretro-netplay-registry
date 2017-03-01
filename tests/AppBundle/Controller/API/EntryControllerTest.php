@@ -73,7 +73,7 @@ class EntryControllerTest extends WebTestCase
         $this->assertEmpty($xmlEntries);
 
         $client->request('GET', '/?username=Test&ip=127.0.0.1&corename=Glilde64&coreversion=0.5&gamename=MarioKart64&gamecrc=abcdefg');
-        $client->request('GET', '/?username=Test&ip=127.0.0.1&corename=Glilde64&coreversion=0.5&gamename=MarioKart64&gamecrc=abcdefg');
+        $client->request('GET', '/?username=Test&ip=192.168.1.51&corename=Glilde64&coreversion=0.5&gamename=MarioKart64&gamecrc=abcdefg');
 
         $client->request('GET', '/api/entry/data.raw');
         $this->assertNotEmpty($client->getResponse()->getContent());
