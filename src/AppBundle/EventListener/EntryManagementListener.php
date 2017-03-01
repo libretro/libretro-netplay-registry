@@ -45,11 +45,12 @@ class EntryManagementListener
         $em = $args->getEntityManager();
 
         // Get entries from database. Newest first.
-        $similarEntries = $em->getRepository('AppBundle:Entry')->findBy(['ip' => $entity->getIp()], ['createdAt' => 'ASC']);
+        $similarEntries = $em->getRepository('AppBundle:Entry')->findBy(['ip' => $entity->getIp()], ['createdAt' => 'DESC']);
 
         $counter     = 0;
         $pairCounter = 0;
         foreach ($similarEntries as $similarEntry) {
+            /** @var Entry $similarEntry */
             ++$counter;
             if ($counter > $this->entriesPerIp) { // Remove if more entries in database than allowed.
                 $em->remove($similarEntry);
