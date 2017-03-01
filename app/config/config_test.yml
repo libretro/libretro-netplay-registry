@@ -12,10 +12,6 @@ web_profiler:
     toolbar: false
     intercept_redirects: false
 
-swiftmailer:
-    disable_delivery: true
-
 doctrine:
     dbal:
-        driver:   pdo_sqlite
         path:     "%kernel.root_dir%/../var/cache/test/mock.db"
