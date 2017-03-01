@@ -43,7 +43,7 @@ For a production environment consider this facts/guides:
 
 - Use the latest PHP version for more speed and security.
 - Use a PHP Accelerator such as APC.
-- Install dependencies with optimized autoloader: ``composer dump-autoload --optimize``
+- Install dependencies with optimized autoloader: ``composer dump-autoload --optimize --no-dev --classmap-authoritative``
 - Delete the following files: ``/web/app_dev.php`` and ``/web/config.php``
 
 Cron-Job
