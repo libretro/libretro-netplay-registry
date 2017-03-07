@@ -3,18 +3,29 @@ language: php
 php:
   - '5.6'
   - '7.0'
+  - '7.1'
+
+cache:
+  directories:
+    - $HOME/.composer/cache/files
+
+env:
+  - SYMFONY_VERSION="3.2.*" DB=mysql
+
+before-install:
+  - composer self-update
 
 install:
   - composer install
+  - cp app/config/parameters.yml.dist app/config/parameters.yml
+  - php bin/console doctrine:database:create --env=test
+  - php bin/console doctrine:schema:create --env=test
 
 script:
-  - composer test
+  - phpunit
 
 cache:
   directories:
     - vendor
     - $HOME/.composer
 
-notifications:
-  email:
-    on_success: never

@@ -1,0 +1,10 @@
+{% for entry in entries %}
+{{ entry.username }}
+{{ entry.ip }}
+{{ entry.port }}
+{{ entry.coreName }}
+{{ entry.coreVersion }}
+{{ entry.gameName }}
+{{ entry.gameCRC }}
+{{ entry.createdAt|date('U') }}
+{% endfor %}

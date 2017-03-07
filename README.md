@@ -1,33 +1,41 @@
-# libretro-netplay-registry
+libretro-netplay-registry
+=========================
+
+[![Build Status](https://travis-ci.org/libretro/libretro-netplay-registry.svg?branch=master)](https://travis-ci.org/libretro/libretro-netplay-registry)
 
 Stores a netplay registry for libretro.
 
-## Usage
+# Requirements
 
-- Retrieve all entries in registry.lpl by visiting index.php
-- Add an entry by requesting index.php?username=<user>&ip=<ip>&corename=<corename>&coreversion=<coreversion>&gamename=<gamename>&gamecrc=<gamecrc>
+* PHP 5.6 or higher
+* [Composer](https://getcomposer.org/download/)
+* And the requirements that are checked with: `php bin/symfony_requirements`
 
-## Install
+# Installation
 
-1. Check out the git repository
-1. Make sure SQLite3 is available to PHP
-1. Make sure .registry.sqlite is writable by PHP
-1. Visit index.php and see that the registry is empty
-1. Visit index.php?username=<user>&ip=<ip>&corename=<corename>&coreversion=<coreversion>&gamename=<gamename>&gamecrc=<gamecrc> to add an entry
-1. Visit index.php and see your new entry added
+1. Clone repository: `git clone https://github.com/libretro/libretro-netplay-registry.git`
+2. Go into the directory: `cd libretro-netplay-registry`
+3. Install dependencies: `composer install`
+4. Create database: `php bin/console doctrine:database:create`
 
-## Development
+# Development
 
-Use [Docker Compose](https://docs.docker.com/compose/) to set up a development environment. Instructions are in [docker-compose.yml](docker-compose.yml).
+1. Follow the installation.
+2. Run application: `php bin/console server:run`
 
-## TODO
+# TODO
 
-- Add some validation and security behind adding entries
+* Add some validation and security behind adding entries.
+* Add continuous integration.
 
-## Hosting
+# Hosting
 
-The server, hosted at http://lobby.libretro.com is running the following software:
+The server, hosted at [http://lobby.libretro.com](http://lobby.libretro.com) is running the following software:
 
-- PHP 5.5.9
-- SQLite3
-- Nginx
+* PHP 5.5.9
+* SQLite3
+* Nginx
+
+# Documentation
+
+For more information visit the [documentation](./src/AppBundle/Resources/doc/index.rst).
