@@ -1,6 +1,6 @@
-# libretro-netplay-registry
+# libretro-netplay-registry (Deprecated)
 
-Stores a netplay registry for libretro.
+Stores a netplay registry for libretro. Now living over at https://github.com/libretro/netplay-lobby-server .
 
 ## Usage
 
